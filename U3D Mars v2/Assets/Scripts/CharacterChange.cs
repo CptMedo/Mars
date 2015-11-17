@@ -6,12 +6,15 @@ public class CharacterChange : MonoBehaviour {
 
 	public GameObject GuiHuman;
 	public GameObject GuiRobot;
+    public GameObject GuiRamasser;
+    public GameObject GuiVoler;
+    public GameObject GuiCreuser;
 	public GameObject Human;
 	public GameObject Robot;
 
 	// Use this for initialization
 	void Start () {
-		//HumanSelection ();
+		HumanSelection ();
 	}
 	
 	// Update is called once per frame
@@ -22,7 +25,10 @@ public class CharacterChange : MonoBehaviour {
 
 	void HumanSelection () {
 		GuiHuman.SetActive (true);
+        GuiRamasser.SetActive(true);
 		GuiRobot.SetActive(false);
+        GuiVoler.SetActive(false);
+        GuiCreuser.SetActive(false);
 
 		Human.GetComponent<SpriteRenderer> ().enabled = true;
 		Robot.GetComponent<SpriteRenderer> ().enabled = false;
@@ -32,9 +38,12 @@ public class CharacterChange : MonoBehaviour {
 	void RobotSelection () {
 
 		GuiHuman.SetActive (false);
-		GuiRobot.SetActive (true);
+        GuiRamasser.SetActive(false);
+        GuiRobot.SetActive (true);
+        GuiVoler.SetActive(true);
+        GuiCreuser.SetActive(true);
 
-		Human.GetComponent<SpriteRenderer> ().enabled = false;
+        Human.GetComponent<SpriteRenderer> ().enabled = false;
 		Robot.GetComponent<SpriteRenderer> ().enabled = true;
 		
 	}
