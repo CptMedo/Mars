@@ -23,6 +23,8 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
 		// -1 : left
 		public int direction = 0;
 
+        public bool isJumping = false;
+
         int totalJumps;
 
         CharacterController _characterController;
@@ -32,7 +34,7 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
             _characterController = GetComponent<CharacterController>();
         }
 
-        void Update()
+        void FixedUpdate()
         {
 			this.move();
         }
@@ -59,29 +61,29 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
 			{
 				currentSpeed = 0;
 			}
-			
-			// If player is touching the ground
-			if ((_characterController.collisionFlags & CollisionFlags.Below) != 0)
-			{
-				amountToMove.y = -1f;
-				totalJumps = 0;
-			}
-			else
-			{
-				amountToMove.y -= gravity * Time.deltaTime;
-			}
-			
-			// Jump
-			if ((Input.GetKeyDown(KeyCode.W) || 
-			     Input.GetKeyDown(KeyCode.Space) ||
-			     Input.GetKeyDown(KeyCode.UpArrow)) 
-			    && totalJumps < jumpsAllowed)
-			{
-				totalJumps++;
-				amountToMove.y = jumpHeight;	
-			}
-			
-			// Input
+
+            // If player is touching the ground
+            if ((_characterController.collisionFlags & CollisionFlags.Below) != 0)
+            {
+                amountToMove.y = -1f;
+                totalJumps = 0;
+            }
+            else
+            {
+                amountToMove.y -= gravity * Time.deltaTime;
+            }
+
+            if (totalJumps < jumpsAllowed && isJumping)
+            {
+                Debug.Log("jump if");
+                totalJumps++;
+                amountToMove.y = jumpHeight;
+                
+            }
+            isJumping = false;
+
+            // Input
+            Debug.Log("log");
 			var targetSpeed = direction * runSpeed;
 			currentSpeed = IncrementTowards(currentSpeed, targetSpeed, acceleration);
 			
@@ -99,5 +101,13 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
 			
 			_characterController.Move(amountToMove * Time.deltaTime);
 		}
+
+        public void jump()
+        {
+            Debug.Log("jump");
+            // Jump
+            
+
+        }
     }
 }
