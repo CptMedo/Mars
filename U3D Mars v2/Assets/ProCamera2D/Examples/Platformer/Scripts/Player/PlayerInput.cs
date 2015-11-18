@@ -8,7 +8,7 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
         public Transform Body;
 
         // Player Handling
-        public float gravity = 20;
+        public float gravity = 15;
         public float runSpeed = 12;
         public float acceleration = 30;
         public float jumpHeight = 12;
@@ -24,6 +24,8 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
 		public int direction = 0;
 
         public bool isJumping = false;
+
+        public Transform objectToDestroy = null;
 
         int totalJumps;
 
@@ -109,5 +111,17 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
             
 
         }
+
+        public void destroy()
+        {
+            Debug.Log(objectToDestroy);
+            if (objectToDestroy != null)
+            {
+                Destroy(objectToDestroy.gameObject);
+            }
+            objectToDestroy = null;
+        }
+
+
     }
 }

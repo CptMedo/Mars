@@ -29,6 +29,11 @@ public class Move : MonoBehaviour {
         player.GetComponent<PlayerInput>().direction = 0;
     }
 
+    public void Destroy()
+    {
+        player.GetComponent<PlayerInput>().destroy();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
