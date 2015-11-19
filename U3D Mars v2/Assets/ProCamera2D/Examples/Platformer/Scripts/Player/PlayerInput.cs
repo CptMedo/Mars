@@ -13,6 +13,7 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
         public float acceleration = 30;
         public float jumpHeight = 12;
         public int jumpsAllowed = 2;
+        public bool facingRight = true;
 
         private float currentSpeed;
         private Vector3 amountToMove;
@@ -31,9 +32,13 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
 
         CharacterController _characterController;
 
+        private Animator robotAnimator = null;
+
         void Start()
         {
             _characterController = GetComponent<CharacterController>();
+            robotAnimator = GameObject.Find("Robot").GetComponent<Animator>();
+            Debug.Log("animator:"+robotAnimator);
         }
 
         void FixedUpdate()
@@ -56,7 +61,8 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
             }
         }
 
-		public void move() {
+	    private void move() {
+            
 			
 			// Reset acceleration upon collision
 			if ((_characterController.collisionFlags & CollisionFlags.Sides) != 0)
@@ -85,12 +91,23 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
             isJumping = false;
 
             // Input
-            Debug.Log("log");
 			var targetSpeed = direction * runSpeed;
 			currentSpeed = IncrementTowards(currentSpeed, targetSpeed, acceleration);
-			
-			// Reset z
-			if (transform.position.z != 0)
+            Debug.Log("animator before call:" + robotAnimator);
+            if(robotAnimator.gameObject.activeInHierarchy)
+            {
+                Debug.Log("animator go:" + robotAnimator);
+                robotAnimator.SetFloat("Speed", Mathf.Abs(currentSpeed));
+            }
+                
+            //Debug.Log("currentspeed :" + currentSpeed);
+            if (currentSpeed > 0 && !facingRight)
+                Flip();
+            else if (currentSpeed < 0 && facingRight)
+                Flip();
+
+            // Reset z
+            if (transform.position.z != 0)
 			{
 				amountToMove.z = -transform.position.z;
 			}
@@ -104,14 +121,6 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
 			_characterController.Move(amountToMove * Time.deltaTime);
 		}
 
-        public void jump()
-        {
-            Debug.Log("jump");
-            // Jump
-            
-
-        }
-
         public void destroy()
         {
             Debug.Log(objectToDestroy);
@@ -120,6 +129,14 @@ namespace Com.LuisPedroFonseca.ProCamera2D.Platformer
                 Destroy(objectToDestroy.gameObject);
             }
             objectToDestroy = null;
+        }
+
+        void Flip()
+        {
+            facingRight = !facingRight;
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
         }
 
 

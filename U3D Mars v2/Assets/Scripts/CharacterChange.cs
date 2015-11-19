@@ -41,8 +41,8 @@ public class CharacterChange : MonoBehaviour {
         Human.SetActive(true);
         Robot.SetActive(false);
 
-		Human.GetComponent<SpriteRenderer> ().enabled = true;
-		Robot.GetComponent<SpriteRenderer> ().enabled = false;
+		//Human.GetComponent<SpriteRenderer> ().enabled = true;
+		//Robot.GetComponent<SpriteRenderer> ().enabled = false;
         player.GetComponent<PlayerInput>().jumpsAllowed = 1;
         player.GetComponent<CharacterController>().radius = 0.19f;
         player.GetComponent<CharacterController>().height = 0.46f;
@@ -60,8 +60,8 @@ public class CharacterChange : MonoBehaviour {
         Human.SetActive(false);
         Robot.SetActive(true);
 
-        Human.GetComponent<SpriteRenderer> ().enabled = false;
-		Robot.GetComponent<SpriteRenderer> ().enabled = true;
+  //      Human.GetComponent<SpriteRenderer> ().enabled = false;
+		//Robot.GetComponent<SpriteRenderer> ().enabled = true;
         player.GetComponent<PlayerInput>().jumpsAllowed = 2;
         player.GetComponent<CharacterController>().radius = 0.22f;
         player.GetComponent<CharacterController>().height = 0.65f;
