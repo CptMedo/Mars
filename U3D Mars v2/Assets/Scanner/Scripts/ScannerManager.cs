@@ -83,20 +83,6 @@ public class ScannerManager : MonoBehaviour {
     void OnGUI() {
 
 
-		if (!scan){
-
-			if (GUI.Button(new Rect(30, 30, 150, 100), "Start scan")){
-
-                StartScan();
-            }
-
-		}else{
-
-			if (GUI.Button(new Rect(30, 30, 150, 100), "Stop scan")){
-				StopScan();
-			}
-		}
-
 	}
 
 
