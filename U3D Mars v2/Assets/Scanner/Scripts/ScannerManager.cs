@@ -9,6 +9,7 @@ public class ScannerManager : MonoBehaviour {
 	public GameObject scannerRay;
 	public GameObject scannerCollider;
 	public GameObject scannerImages;
+    public bool isScanning = false;
 
 	float size = 0f;
 	public float sizeTime = 2f;
@@ -53,13 +54,13 @@ public class ScannerManager : MonoBehaviour {
 		Debug.Log("Scan stopped");
 		speedCollider = 0f;
 		sound.Stop();
-
+        isScanning = false;
 	}
 
 
     public void StartScan()
     {
-
+        isScanning = true;
         Debug.Log("Scan started");
         scan = true;
         speedCollider = 2f;

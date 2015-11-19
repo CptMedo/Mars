@@ -12,6 +12,7 @@ public class ScanCollide : MonoBehaviour {
 	Vector3 initialSize;
 	bool blink = false;
 	public GameObject shockWave;
+    public GameObject scanner;
 	AudioSource sound;
 
 
@@ -83,7 +84,8 @@ public class ScanCollide : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		if (other.gameObject.tag == "scan"){
+		if (other.gameObject.tag == "scan" && scanner.GetComponent<ScannerManager>().isScanning)
+        {
 			CancelInvoke("SetFadeOut");
 			scanned=true;
 			Debug.Log (this.name + " scanned");
@@ -96,11 +98,12 @@ public class ScanCollide : MonoBehaviour {
 
 		}else if (other.gameObject.tag == "Player"){
 
-				Debug.Log (this.name + " catched by player");
-				shockWave.SetActive(true);
-				sr.material.color = new Color(sr.material.color.r, sr.material.color.g, sr.material.color.b, 0f);
-
-
+            if (scanned)
+            {
+                Debug.Log(this.name + " catched by player");
+                shockWave.SetActive(true);
+                sr.material.color = new Color(sr.material.color.r, sr.material.color.g, sr.material.color.b, 0f);
+            }
 		}
 
 	}
